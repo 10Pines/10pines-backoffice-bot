@@ -5,23 +5,17 @@ var schedule = require('node-schedule');
 
 // Starting
 var slack = new slackAPI({
-    'token': process.env.SLACK_TOKEN,
-    'logging': true
+  'token': process.env.SLACK_TOKEN,
+  'logging': true
 });
 
+var rule = new schedule.RecurrenceRule();
+rule.dayOfWeek = [new schedule.Range(1, 5)];
+rule.hour = 17;
+rule.minute = 0;
 
-
-
-//var rule = new schedule.RecurrenceRule();
-//rule.minute = 42;
-
-// lunes a viernes a las 17hs: '0 0 17 ? * MON,TUE,WED,THU,FRI *'
-// cada hora: '0 0 0/1 1/1 * ? *'
-// cada 5 mins: '0 0/5 * 1/1 * ? *'
-var job = schedule.scheduleJob('0 0/5 * 1/1 * ? *', function(){
-  console.console.log("enviando mensaje...");
-    slack.sendPM("lucas", "Saracatunga!!");
-    console.console.log("mensaje enviado");
-    //var allUsers = slackAPI.slackData.users();
+var job = schedule.scheduleJob(rule, function(){
+  var allUsers = slackAPI.slackData.users();
+  slack.sendPM("lucas", "Cargá las horas!!!" + allUsers);
 
 });
