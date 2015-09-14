@@ -19,8 +19,9 @@ var slack = new slackAPI({
 // cada hora: '0 0 0/1 1/1 * ? *'
 // cada 5 mins: '0 0/5 * 1/1 * ? *'
 var job = schedule.scheduleJob('0 0/5 * 1/1 * ? *', function(){
-
-    slack.sendPM("lucas", "Saracatunga!!")
+  console.console.log("enviando mensaje...");
+    slack.sendPM("lucas", "Saracatunga!!");
+    console.console.log("mensaje enviado");
     //var allUsers = slackAPI.slackData.users();
 
 });
