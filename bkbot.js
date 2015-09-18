@@ -17,5 +17,4 @@ rule.minute = 0;
 var job = schedule.scheduleJob(rule, function(){
   var allUsers = slackAPI.slackData.users();
   slack.sendPM("lucas", "Cargá las horas!!!" + allUsers);
-
 });
