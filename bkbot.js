@@ -9,16 +9,20 @@ var slack = new slackAPI({
   'logging': true
 });
 
-var rule = new schedule.RecurrenceRule();
-rule.dayOfWeek = [new schedule.Range(1, 5)];
-rule.hour = 17;
-rule.minute = 0;
-
-var job = schedule.scheduleJob(rule, function(){
-  var allUsers = slackAPI.slackData.users();
-  slack.sendPM("lucas", "Cargá las horas!!!" + allUsers);
+var job = schedule.scheduleJob({hour: 17, minute: 0, dayOfWeek: [new schedule.Range(1, 5)]}, function(){
+  var allUsers = slack.slackData.users;
+  var names = [];
+  for (aUser in slack.slackData.users) {
+    var userName = slack.slackData.users[aUser]['name'];
+    if (~userName.indexOf('bot') > -1) {
+      names.push(userName);
+    };
+  };
+  for(nameIndex in names) {
+    slack.sendPM(names[nameIndex], "No te olvides de cargar las horas de hoy!");
+  };
 });
 
-  var allUsers = slackAPI.slackData.users();
-  console.log(allUsers);
-  slack.sendPM("lucas", "Cargá las horas!!!" + allUsers);
+var j = schedule.scheduleJob({hour: 16, minute: 0, dayOfWeek: [new schedule.Range(1, 5)]}, function(){
+  slack.sendPM("lucas", "vivo!");
+});
