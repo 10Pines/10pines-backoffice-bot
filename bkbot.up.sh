@@ -1,10 +1,12 @@
 #!/bin/bash
 
 source variables.sh
-echo "Installing dependencies"
 
+echo "Installing dependencies..."
 npm install
 
-npm "starting BKBot"
+echo "Building"
+npm run build
 
-node ./bkbot.js &>> ./log/bkbot.log &
+echo "starting BKBot"
+npm run start &>> ./log/bkbot.log &
