@@ -9,4 +9,4 @@ echo "Building"
 npm run build
 
 echo "starting BKBot"
-npm run start &>> ./log/bkbot.log &
+node ./bkbot.js &>> ./log/bkbot.log &
