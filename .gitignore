@@ -1,6 +1,8 @@
 # Logs
 logs
 *.log
+# Variables
+variables.sh
 
 # Runtime data
 pids

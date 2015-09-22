@@ -18,3 +18,7 @@ var job = schedule.scheduleJob(rule, function(){
   var allUsers = slackAPI.slackData.users();
   slack.sendPM("lucas", "Cargá las horas!!!" + allUsers);
 });
+
+  var allUsers = slackAPI.slackData.users();
+  console.log(allUsers);
+  slack.sendPM("lucas", "Cargá las horas!!!" + allUsers);
