@@ -7,14 +7,22 @@ var schedule = require('node-schedule');
 var slack = new slackAPI({
   'token': process.env.SLACK_TOKEN,
   'logging': true
+}, function(err) {
+  console.log("Problem executing connection with slack: " + err['msg']);
 });
 
-var job = schedule.scheduleJob({hour: 17, minute: 0, dayOfWeek: [new schedule.Range(1, 5)]}, function(){
+var notificationSchedule = {
+  hour: 17,
+  minute: 0,
+  dayOfWeek: [new schedule.Range(1, 5)]
+};
+//TODO long method. Refactor!
+var job = schedule.scheduleJob(notificationSchedule, function(){
   var allUsers = slack.slackData.users;
   var names = [];
   for (aUser in slack.slackData.users) {
     var userName = slack.slackData.users[aUser]['name'];
-    if (~userName.indexOf('bot') > -1) {
+    if (~userName.indexOf('bot') > -1) { //TODO isBot abstraction missing. Refator!
       names.push(userName);
     };
   };
@@ -23,6 +31,7 @@ var job = schedule.scheduleJob({hour: 17, minute: 0, dayOfWeek: [new schedule.Ra
   };
 });
 
-var j = schedule.scheduleJob({hour: 16, minute: 0, dayOfWeek: [new schedule.Range(1, 5)]}, function(){
+reminderSchedule = {hour: 16, minute: 0, dayOfWeek: [new schedule.Range(1, 5)]};
+var alertJob = schedule.scheduleJob(reminderSchedule, function(){
   slack.sendPM("lucas", "vivo!");
 });
