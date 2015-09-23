@@ -2,6 +2,7 @@
 var slackAPI = require('slackbotapi');
 var request = require('request');
 var schedule = require('node-schedule');
+var sleep = require('sleep');
 
 // Starting
 var slack = new slackAPI({
@@ -28,10 +29,6 @@ var job = schedule.scheduleJob(notificationSchedule, function(){
   };
   for(nameIndex in names) {
     slack.sendPM(names[nameIndex], "No te olvides de cargar las horas de hoy!");
+    sleep.usleep(500000);
   };
-});
-
-reminderSchedule = {hour: 16, minute: 0, dayOfWeek: [new schedule.Range(1, 5)]};
-var alertJob = schedule.scheduleJob(reminderSchedule, function(){
-  slack.sendPM("lucas", "vivo!");
 });
