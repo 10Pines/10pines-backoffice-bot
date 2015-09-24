@@ -13,8 +13,8 @@ var slack = new slackAPI({
 });
 
 var notificationSchedule = {
-  hour: 17,
-  minute: 0,
+  hour: 9,
+  minute: 15,
   dayOfWeek: [new schedule.Range(1, 5)]
 };
 //TODO long method. Refactor!
@@ -28,7 +28,7 @@ var job = schedule.scheduleJob(notificationSchedule, function(){
     };
   };
   for(nameIndex in names) {
-    slack.sendPM(names[nameIndex], "No te olvides de cargar las horas de hoy!");
-    sleep.usleep(500000);
+    slack.sendPM(names[nameIndex], "Hola :) Cargaste las horas de ayer? \nSi aún no lo hiciste, es un buen momento!");
+    sleep.usleep(1200000);
   };
 });
