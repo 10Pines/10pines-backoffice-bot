@@ -29,6 +29,6 @@ var job = schedule.scheduleJob(notificationSchedule, function(){
   };
   for(nameIndex in names) {
     slack.sendPM(names[nameIndex], "Hola :) Cargaste las horas de ayer? \nSi aún no lo hiciste, es un buen momento!");
-    sleep.usleep(1200000);
+    sleep.sleep(5);
   };
 });
